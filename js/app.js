@@ -27,16 +27,23 @@ const showWeatherInfo = async inputValue => {
   temperatureContainer.textContent = Temperature.Metric.Value
   IsDayTime ? timeImg.src = './src/day.svg' : timeImg.src = './src/night.svg'
 }
+const showLocalStorageCity = () => {
+  const key = localStorage.getItem('key')
+  
+  if(key){
+    showWeatherInfo(key)
+    showCityCard()
+  }
+}
 
 cityForm.addEventListener('submit',  event => {
   event.preventDefault()
 
   const inputValue = event.target.city.value
   
-  showWeatherInfo(inputValue)
   showCityCard()
-  
-
-  
+  showWeatherInfo(inputValue)
+  localStorage.setItem('key', inputValue)
   cityForm.reset()
 })
+showLocalStorageCity()
